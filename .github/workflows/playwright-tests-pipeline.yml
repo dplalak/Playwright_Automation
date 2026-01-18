@@ -48,9 +48,10 @@ jobs:
       - name: Send Slack notification
         if: always()
         run: |
-          STATUS="Success"
+          TITLE="🎯 Playwright Test Pipeline"
+          STATUS="✅ Success"
           if [[ "${{ job.status }}" != "success" ]]; then
-            STATUS="Failed"
+            STATUS="❌ Failed"
           fi
           curl -X POST -H 'Content-type: application/json' \
             --data '{"text":"Playwright tests for project '${{ matrix.project }}' finished: '"$STATUS"'"}' \
