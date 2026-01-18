@@ -1,0 +1,24 @@
+{
+  "name": "playwright_automation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:web": "npx playwright test --project=chromium --project=firefox --project=webkit",
+    "test:chromium": "npx playwright test --project=chromium",
+    "test:firefox": "npx playwright test --project=firefox",
+    "test:webkit": "npx playwright test --project=webkit",
+    "test:mobile": "npx playwright test --project=mobile-chrome --project=mobile-safari",
+    "test:mobile:chrome": "npx playwright test --project=mobile-chrome",
+    "test:mobile:safari": "npx playwright test --project=mobile-safari",
+    "report": "npx playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^25.0.9"
+  }
+}
