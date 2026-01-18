@@ -13,6 +13,7 @@ jobs:
       USERNAME: ${{ secrets.USERNAME_SECRET }}
       SECOND_USERNAME: ${{ secrets.SECOND_USERNAME_SECRET }}
       PASSWORD: ${{ secrets.PASSWORD_SECRET }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     strategy:
       matrix:
         project: [chromium, firefox, webkit, mobile-chrome, mobile-safari]
@@ -43,3 +44,14 @@ jobs:
           name: playwright-report-${{ matrix.project }}
           path: playwright-report/
           retention-days: 7
+
+      - name: Send Slack notification
+        if: always()
+        run: |
+          STATUS="Success"
+          if [[ "${{ job.status }}" != "success" ]]; then
+            STATUS="Failed"
+          fi
+          curl -X POST -H 'Content-type: application/json' \
+            --data '{"text":"Playwright tests for project '${{ matrix.project }}' finished: '"$STATUS"'"}' \
+            ${{ env.SLACK_WEBHOOK_URL }}
